@@ -7,7 +7,6 @@ URL = "https://www.euro-jackpot.net/statistics/number-frequency"
 
 tables = pd.read_html(URL)
 
-# The first table is the one we want
 df_main = tables[0]
 df_euro = tables[1]
 
