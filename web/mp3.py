@@ -6,8 +6,9 @@ import requests
 from bs4 import BeautifulSoup
 
 # Define the URL of the webpage containing MP3 links
-BASE_URL = 'https://svenskadagfordag.se/ljud/ljud-svenska-dag-for-dag-d/vecka-{}-{}'
-urls = [BASE_URL.format(i, j) for i in range(1, 10) for j in ['d', 'hoeroevningar-d']]
+# BASE_URL = 'https://svenskadagfordag.se/ljud/ljud-svenska-dag-for-dag-d/vecka-{}-{}'
+# urls = [BASE_URL.format(i, j) for i in range(1, 10) for j in ['d', 'hoeroevningar-d']]
+urls = ['https://www.sanomautbildning.se/sv/produkter/grundhjulet-grundlaggande-svenska-som-andrasprak-9789152327982/#bonusmaterial']
 
 # Fetch the webpage content
 for url in urls:
@@ -15,9 +16,10 @@ for url in urls:
     soup = BeautifulSoup(response.content, 'html.parser')
 
     # Find all MP3 hyperlinks on the page
-    for link in soup.find_all('a', href=re.compile(r'http.*\.mp3')):
+    for link in soup.find_all('a', href=re.compile(r'.*\.pdf')):
         mp3_url = link['href']
         filename = mp3_url.split('/')[-1]  # Extract the filename from the URL
+        mp3_url = "https://www.sanomautbildning.se/" + mp3_url
         mp3_content = requests.get(mp3_url).content
 
         # Save the MP3 content to a local file
